@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title></title>
+		<link rel="stylesheet" href="">
+		<style type="text/css" media="screen">
+			
+			*{
+				font: Arial;
+				font-size: 18px;
+			}
+			.purchased{
+				color: red;
+				text-decoration: line-through;
+				font-weight: bold;
+			}
+			#list{
+				border: 2px solid black;
+				max-width: 300px;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="list">
+			<div class="change-state-form">
+				<button @click="changeState('edit')">Modo edição</button>
+				<button @click="changeState('view')">Modo visualização</button>
+			</div>
+			<div v-if="state === 'edit'"class="add-new-item-form">
+				<input type="" name="" v-model="newItem" @keyup.enter="addItem">
+				<button type="" @click="addItem" :disabled="newItem.trim().length === 0">Salvar item</button>
+			</div>
+			<ul>
+				<li v-for="item in items"  style="display: flex; justify-content: space-between; width: 70%;">
+					<span :class="{purchased: item.purchased}" >{{item.description}}</span>
+					<span><a href="#" @click="removerItem(item.id)">Deletar Item </a></span>
+				</li>
+			</ul>
+			<p v-if="items.length === 0">Nenhum item cadastrado</p>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#list",
+			data: {
+				state: 'default',
+				items: [
+					{	
+						id: 1,
+						description: "maçã",
+						purchased: false
+					},
+					{
+						id: 2,
+						description: "pera",
+						purchased: true
+					},
+					{	
+						id: 3,
+						description: "leite",
+						purchased: false
+					}
+				],
+				newItem: ""
+			},
+			methods: {
+				addItem: function(){
+					if (this.newItem.trim().length !== 0) {
+						const lastIndexItemList = this.items.length; 
+						this.items.push(
+							{
+								description:this.newItem, 
+								purchased: false,
+								id: lastIndexItemList + 1
+							}
+						);
+						this.newItem = "";
+					}
+				},
+				changeState: function(stateOfList){
+					this.state = stateOfList; //edit or view mode.
+					this.newItem = "";
+				},
+
+				removerItem: function(id)
+				{
+					this.items = this.items.filter(item => { return item.id !== id});
+				}
+			}
+		});
+	</script>
+</html>

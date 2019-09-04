@@ -1,0 +1,18 @@
+<div id="app">
+	<p>{{ message }}</p>
+	<button v-on:click="inverter">Click</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	const app = new Vue({
+		el: "#app",
+		data: {
+			message: "Hello world"
+		},
+		methods: {
+			inverter: function(){
+				this.message = this.message.split("").reverse().join("");
+			}
+		}
+	})
+</script>

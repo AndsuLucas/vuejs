@@ -1,0 +1,34 @@
+<meta charset="utf-8">
+<div id="App">
+	<table>
+		<tbody>
+			<tr v-for="register in registers">
+				<td> {{ register.name  }} </td>
+				<td> {{ register.email }} </td>
+				<td> {{ register.body  }} </td>
+			</tr>
+		
+		</tbody>
+	</table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	//Vue.config.devtools = true;
+	const app = new Vue({
+		el: '#app',
+		data: {
+			registers: []
+		},
+		created () {
+			fetch('https://jsonplaceholder.typicode.com/comments')
+				.then(response => response.json())
+				.then(json => {
+					this.registers = json			
+				});
+		}
+	});
+	
+	var url = "https://jsonplaceholder.typicode.com/comments"
+	var product = 'Boots';
+
+</script>

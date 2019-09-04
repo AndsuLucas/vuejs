@@ -1,0 +1,21 @@
+<div id="app">
+	<input type="text" v-model="message" id="">
+	<button v-on:click="setMessage">Click</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+	(function(){
+		const app = new Vue({
+			el: "#app",
+			data: {
+				message: ""
+			},
+			methods: {
+				setMessage: function(){
+					this.message = "Hello world"
+				}
+			}
+		});
+	})();
+</script>
